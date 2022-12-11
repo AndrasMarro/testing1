@@ -36,8 +36,11 @@ public class Shooting : MonoBehaviour
         if (hitInfo)
         {
             Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
+            HiddenWall hd = hitInfo.transform.GetComponent<HiddenWall>();
             if (enemy != null)
                 enemy.takeDamage(damage);
+            if (hd != null)
+                hd.takeDamage(damage);
             Instantiate(impactEffect, hitInfo.point, Quaternion.identity);
 
             lineRenderer.SetPosition(0, firePoint.position);
