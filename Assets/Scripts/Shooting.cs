@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Shooting : MonoBehaviour
 {
     public Transform firePoint;
     public int damage = 40;

@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundObjects;
     public float checkRadius;
     public int maxJumpCount;
-    public int jumpCooldown = 300;
+    public int jumpCooldown = 400;
 
     private Rigidbody2D rb;
     private bool facingRight = true;
@@ -32,26 +32,18 @@ public class PlayerMovement : MonoBehaviour
         jumpCount = maxJumpCount;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Get Inputs
         ProcessInputs();
-
-        // Animate
         Animate();
     }
 
     void FixedUpdate()
     {
-        // Check if grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundObjects);
         if(isGrounded)
-        {
             jumpCount = maxJumpCount;
-        }
 
-        // Move
         Move();
     }
 
@@ -68,6 +60,14 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false;
     }
 
+    private void ProcessInputs() 
+    { 
+        moveDirection = Input.GetAxis("Horizontal"); 
+        if (Input.GetButtonDown("Jump") && jumpCount > 0) 
+            isJumping = true;
+    }
+   
+    
     private void Animate()
     {
         if (moveDirection > 0 && !facingRight)
@@ -75,16 +75,6 @@ public class PlayerMovement : MonoBehaviour
         else if (moveDirection < 0 && facingRight)
             FlipCharacter();
     }
-
-    private void ProcessInputs() 
-    { 
-        moveDirection = Input.GetAxis("Horizontal"); 
-        if (Input.GetButtonDown("Jump") && jumpCount > 0) 
-        {
-            isJumping = true;
-        }
-    }
-
 
     private void FlipCharacter()
     {
